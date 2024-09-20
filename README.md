@@ -1,7 +1,7 @@
 ## Hi there 👋
 
 
-[![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=recitativonika&theme=dark&background=000000)](https://git.io/streak-stats)
+[![GitHub Streak](https://streak-stats.demolab.com?user=recitativonika&theme=nightfox)](https://git.io/streak-stats)
 <!--
 **recitativonika/recitativonika** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
