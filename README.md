@@ -5,5 +5,5 @@
   <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/recitativonika/recitativonika/output/github-contribution-grid-snake.svg">
 </picture>
 <p align="center">
-  <a href="https://git.io/streak-stats"><img src="https://streak-stats.demolab.com?user=recitativonika&theme=github-dark&hide_border=true" alt="GitHub Streak" /></a>
+<a href="https://git.io/streak-stats"><img src="https://streak-stats.demolab.com?user=recitativonika&theme=github-dark&hide_border=true" alt="GitHub Streak" /></a>
 </p>
