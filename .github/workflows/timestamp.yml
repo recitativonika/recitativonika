@@ -1,0 +1,70 @@
+name: Update Timestamp Every 30 Minutes
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      custom_message:
+        description: 'Custom commit message (optional)'
+        required: false
+        default: 'Manual update'
+
+jobs:
+  update-timestamp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Update Timestamp File
+        run: |
+          current_time=$(date '+%Y-%m-%d %H:%M:%S')
+          echo "Last updated: $current_time" > timestamp.txt
+          
+      - name: Configure Git
+        run: |
+          git config user.name "recitativonika"
+          git config user.email "fool-body-cheddar@duck.com"
+          
+      - name: Commit and Push Changes
+        env:
+          CUSTOM_MSG: ${{ github.event.inputs.custom_message }}
+        run: |
+          if [[ $(git status --porcelain timestamp.txt) ]]; then
+            echo "Changes detected, committing..."
+            
+            # Jika manual dengan custom message
+            if [[ "${{ github.event_name }}" == "workflow_dispatch" && -n "$CUSTOM_MSG" ]]; then
+              commit_message="$CUSTOM_MSG - $(date '+%Y-%m-%d %H:%M:%S')"
+            else
+              # Auto dengan random message
+              commit_messages=(
+                "Auto update timestamp ⏰"
+                "Scheduled timestamp refresh 🔄"
+                "Regular activity log update 📝"
+                "30-minute status sync 🕐"
+                "Timestamp maintenance 🌟"
+                "Keeping the timeline current ⚡"
+                "Routine timestamp update 🔧"
+                "Time checkpoint 🚀"
+              )
+              random_msg=${commit_messages[$RANDOM % ${#commit_messages[@]}]}
+              commit_message="$random_msg - $(date '+%Y-%m-%d %H:%M:%S')"
+            fi
+            
+            git add timestamp.txt
+            git commit -m "$commit_message"
+            git push origin HEAD:${{ github.ref_name }}
+            
+            echo "✅ Timestamp updated successfully!"
+          else
+            echo "ℹ️ No changes in timestamp.txt"
+          fi
