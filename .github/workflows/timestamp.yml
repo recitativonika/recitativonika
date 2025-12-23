@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       custom_message:
-        description: 'Custom commit message (optional)'
+        description: ' '
         required: false
         default: 'Manual update'
 
@@ -41,11 +41,9 @@ jobs:
           if [[ $(git status --porcelain timestamp.txt) ]]; then
             echo "Changes detected, committing..."
             
-            # Jika manual dengan custom message
             if [[ "${{ github.event_name }}" == "workflow_dispatch" && -n "$CUSTOM_MSG" ]]; then
               commit_message="$CUSTOM_MSG - $(date '+%Y-%m-%d %H:%M:%S')"
             else
-              # Auto dengan random message
               commit_messages=(
                 "Auto update timestamp ⏰"
                 "Scheduled timestamp refresh 🔄"
